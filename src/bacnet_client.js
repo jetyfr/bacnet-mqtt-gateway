@@ -8,10 +8,7 @@ class BacnetClient extends EventEmitter {
 
     constructor() {
         super();
-        this.client = new bacnet({ apduTimeout: 10000 });
-        this.client.on('iAm', (device) => {
-            this.emit('deviceFound', device);
-        });
+        this.client = new bacnet({ apduTimeout: 10000 }); 
 
         this.bacnetConfig = new BacnetConfig();
         this.bacnetConfig.on('configLoaded', (config) => {

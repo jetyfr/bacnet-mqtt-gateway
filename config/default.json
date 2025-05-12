@@ -1,18 +1,10 @@
 {
     "mqtt": {
-        "gatewayId": "YOUR INFINIMESH DEVICE ID",
-        "host": "mqtt.api.infinimesh.cloud",
-        "port": 8883,
-        "authentication": {
-            "certPath": "PATH TO YOUR SSL CERT",
-            "keyPath": "PATH TO YOUR SSL KEY"
-        }
+        "gatewayId": "emprendia",
+        "host": "test.mosquitto.org",
+        "port": 1883       
     },
     "bacnet": {
         "configFolder": "./devices/"
-    },
-    "httpServer": {
-        "enabled": true,
-        "port": 8082
     }
 }

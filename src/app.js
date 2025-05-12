@@ -1,11 +1,7 @@
 const { BacnetClient } = require('./bacnet_client');
-const { Server } = require('./server');
 const { logger } = require('./common');
 const { MqttClient } = require('./mqtt_client');
 const config = require('config');
-
-// load configs
-const httpServerEnabled = config.get('httpServer.enabled');
 
 // init MQTT and BACnet clients
 const mqttClient = new MqttClient();
@@ -23,10 +19,6 @@ bacnetClient.on('values', (device, values) => {
 
     mqttClient.publishMessage(values);
 });
-
-if (httpServerEnabled) {
-    new Server(bacnetClient);
-}
 
 // some default init logic when starting the gateway
 function init() {

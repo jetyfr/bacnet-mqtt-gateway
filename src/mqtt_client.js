@@ -4,12 +4,9 @@ const fs = require('fs');
 const EventEmitter = require('events');
 const {logger} = require('./common');
 
-// load configs
 const gatewayId = config.get('mqtt.gatewayId');
 const host = config.get('mqtt.host');
 const port = config.get('mqtt.port');
-const certPath = config.get('mqtt.authentication.certPath');
-const keyPath = config.get('mqtt.authentication.keyPath');
 
 class MqttClient extends EventEmitter {
 
@@ -19,10 +16,7 @@ class MqttClient extends EventEmitter {
         var options = {
             host: host,
             port: port,
-            protocol: 'mqtts',
-            cert: fs.readFileSync(certPath),
-            key: fs.readFileSync(keyPath),
-            rejectUnauthorized: false
+            protocol: 'mqtt'
         }
 
         this.client = mqtt.connect(options);
@@ -30,7 +24,7 @@ class MqttClient extends EventEmitter {
             this._onConnect();
         });
         this.client.on('error', (error) => {
-            logger.log('error', 'Could not connect: ' + err.message);
+            logger.log('error', 'Could not connect: ' + error.message);
         });
     }
 
@@ -39,8 +33,8 @@ class MqttClient extends EventEmitter {
 
         this.client.on('message', (msg) => this._onMessage(msg));
 
-        this.client.on('error', function (err) {
-            logger.log('error', err);
+        this.client.on('error', (error) => {
+            logger.log('error', error);
         });
     };
 
