@@ -18,7 +18,6 @@ class BacnetClient extends EventEmitter {
     }
 
     _readObjectList(deviceAddress, deviceId, callback) {
-        // Read Device Object
         const requestArray = [{
             objectId: { type: bacnet.enum.ObjectTypes.OBJECT_DEVICE, instance: deviceId },
             properties: [
@@ -133,7 +132,6 @@ class BacnetClient extends EventEmitter {
             });
             Promise.all(promises).then((result) => {
                 const values = {};
-                // remove errors and map to result element
                 const successfulResults = result.filter(element => !element.error).map(element => element.value);
                 successfulResults.forEach(object => {
                     const objectId = object.values[0].objectId.type + '_' + object.values[0].objectId.instance;

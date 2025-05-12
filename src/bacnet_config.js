@@ -1,7 +1,7 @@
 const fs = require('fs');
 const EventEmitter = require('events');
 const config = require('config');
-const { DeviceObjectId, DeviceObject, logger } = require('./common');
+const { logger } = require('./common');
 
 const devicesFolder = config.get('bacnet.configFolder');
 
@@ -14,7 +14,6 @@ class BacnetConfig extends EventEmitter {
             } else {
                 logger.log('info', `Device configs found: ${files}`);
                 files.forEach(file => {
-                    // files with _ should be interpreted as deactivated and therefore are skipped
                     if (file.startsWith('_')) {
                         logger.log('info', `Skipping deactivated file ${file}`)
                     } else {
